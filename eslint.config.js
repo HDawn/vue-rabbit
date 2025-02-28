@@ -14,4 +14,11 @@ export default [
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+
+   // 添加以下配置覆盖规则
+   {
+    rules: {
+      'vue/multi-word-component-names': 'off' // 彻底关闭规则
+    }
+  }
 ]
