@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getCategoryApi } from '@/apis/Layout/layout';
+import { getCategoryApi } from '@/apis/layout';
 
 
 export const useCategoryStore = defineStore('category', () => {
