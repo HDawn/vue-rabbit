@@ -8,3 +8,12 @@ export function getCategoryAPI(id) {
     }
   })
 }
+
+export function getCategoryFilterAPI(id) {
+  return request({
+    url: "category/sub/filter",
+    params: {
+      id
+    }
+  })
+}
