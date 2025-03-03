@@ -20,3 +20,10 @@ export function findNewAPI() {
 export const getHotAPI = () => {
   return httpInstance("home/hot")
 }
+
+/**
+ * goods
+ */
+export const getGoodsAPI = () => {
+  return httpInstance("home/goods")
+}
