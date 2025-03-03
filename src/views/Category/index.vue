@@ -1,7 +1,7 @@
 <script setup>
 import { getCategoryAPI } from '@/apis/category';
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import { getBannerApi } from '@/apis/home';
 import GoodsItem from '../Home/components/GoodsItem.vue';
 
@@ -21,14 +21,18 @@ const categoryData = ref([])
 
 const route = useRoute()
 
-const getCategoryData = async () => {
-  const res = await getCategoryAPI(route.params.id)
+const getCategoryData = async (id = route.params.id) => {
+  const res = await getCategoryAPI(id)
   categoryData.value = res.result
 }
 
 onMounted(() => {
   getBanner();
   getCategoryData()
+})
+
+onBeforeRouteUpdate((to) => {
+  getCategoryData(to.params.id)
 })
 
 

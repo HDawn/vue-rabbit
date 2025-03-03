@@ -21,5 +21,7 @@ onMounted(() => {
   <LayoutNav />
   <LayoutHeader />
   <RouterView />
+  <!-- 销毁重建路由来加载数据，缺点是所有数据都会在加载一遍 -->
+  <!-- <RouterView :key="$route.fullPath" /> -->
   <LayoutFooter />
 </template>
