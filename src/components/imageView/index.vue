@@ -17,25 +17,31 @@ const changeBigPicIndex = (i) => {
   bigPicIndex.value = i
 }
 
-
-const { elementX, elementY, isOutside } = useMouseInElement()
+const target = ref(null)
+const { elementX, elementY, isOutside } = useMouseInElement(target)
 
 const left = ref(0)
 const top = ref(0)
-watch([elementX, elementY], () => {
-  console.log('xy变化了');
-  if (elementX.value > 100 && elementX.value < 300) {
-    left.value = elementX.value - 100
-  }
-  if (elementY.value > 100 && elementY.value < 300) {
-    top.value = elementY.value - 100
-  }
+const positionX = ref(0)
+const positionY = ref(0)
 
-  if (elementX.value > 300) { left.value = 200 }
-  if (elementX.value < 100) { left.value = 0 }
-  if (elementY.value > 300) { top.value = 200 }
-  if (elementY.value < 100) { top.value = 0 }
+watch([elementX, elementY, isOutside], () => {
+  console.log('x,y,left,top', elementX.value, elementY.value, left.value, top.value, isOutside.value);
+  if (isOutside.value === false) {
+    if (elementX.value > 100 && elementX.value < 300) {
+      left.value = elementX.value - 100
+    }
+    if (elementY.value > 100 && elementY.value < 300) {
+      top.value = elementY.value - 100
+    }
 
+    if (elementX.value > 300) { left.value = 200 }
+    if (elementX.value < 100) { left.value = 0 }
+    if (elementY.value > 300) { top.value = 200 }
+    if (elementY.value < 100) { top.value = 0 }
+    positionX.value = -left.value * 2
+    positionY.value = -top.value * 2
+  }
 })
 
 </script>
@@ -47,7 +53,7 @@ watch([elementX, elementY], () => {
     <div class="middle" ref="target">
       <img :src="imageList[bigPicIndex]" alt="" />
       <!-- 蒙层小滑块 -->
-      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
+      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }" v-show="!isOutside"></div>
     </div>
     <!-- 小图列表 -->
     <ul class="small">
@@ -60,10 +66,10 @@ watch([elementX, elementY], () => {
     <div class="large" :style="[
       {
         backgroundImage: `url(${imageList[bigPicIndex]})`,
-        backgroundPositionX: `0px`,
-        backgroundPositionY: `0px`,
+        backgroundPositionX: `${positionX}px`,
+        backgroundPositionY: `${positionY}px`,
       },
-    ]" v-show="false"></div>
+    ]" v-show="!isOutside"></div>
   </div>
 </template>
 
