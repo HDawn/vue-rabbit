@@ -1,18 +1,39 @@
 <script setup>
-defineProps({
-  goods: {
-    type: Object,
-    default: () => { }
+import { getHotGoodsAPI } from '@/apis/detail';
+import { computed, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
+
+const props = defineProps({
+  reqType: {
+    type: Number,
+    default: 1
   }
 })
+
+
+const TITLEMAP = {
+  1: "日榜单",
+  2: "周榜单"
+}
+const title = computed(() => TITLEMAP[props.reqType])
+const hotGoodsList = ref([])
+
+const getHotGoodsList = async () => {
+  const res = await getHotGoodsAPI(route.params.id, props.reqType);
+  hotGoodsList.value = res.result
+}
+onMounted(() => getHotGoodsList())
+
 </script>
 
 
 <template>
   <div class="goods-hot">
-    <h3>周日榜单</h3>
+    <h3>{{ title }}</h3>
     <!-- 商品区块 -->
-    <RouterLink to="/" class="goods-item" v-for="item in goods" :key="item.id">
+    <RouterLink to="/" class="goods-item" v-for="item in hotGoodsList" :key="item.id">
       <img :src="item.picture" alt="" />
       <p class="name ellipsis">{{ item.name }}</p>
       <p class="desc ellipsis">{{ item.desc }}</p>

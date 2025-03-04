@@ -8,11 +8,13 @@ const route = useRoute()
 
 const detail = ref({})
 
-const getDeatil = async (id = route.params.id) => {
+const getDetail = async (id = route.params.id) => {
   const res = await getDetailAPI(id);
   detail.value = res.result
 }
-onMounted(() => getDeatil())
+onMounted(() => getDetail())
+
+
 
 </script>
 
@@ -129,9 +131,11 @@ onMounted(() => getDeatil())
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
               <!-- 24小时 -->
-              <DetailHot :goods="detail.hotByDay" />
+              <!-- <DetailHot :goods="detail.hotByDay" /> -->
+              <DetailHot :req-type=1 />
               <!-- 周 -->
-              <DetailHot />
+              <DetailHot :req-type=2 />
+
             </div>
           </div>
         </div>
