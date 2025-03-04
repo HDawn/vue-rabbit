@@ -1,5 +1,10 @@
 <script setup>
+import { loginAPI } from '@/apis/login';
 import { ref } from 'vue';
+
+import { ElMessage } from 'element-plus';
+import 'element-plus/theme-chalk/el-message.css'
+
 
 //1.表单
 const form = ref({
@@ -35,11 +40,14 @@ const formRef = ref(null)
 
 
 const doLogin = () => {
-  formRef.value.validate((valid) => {
-    console.log(valid);
-
+  const { account, password } = form.value
+  formRef.value.validate(async (valid) => {
     if (valid) {
-      //todo
+      const res = await loginAPI({ account, password })
+      if (res.code ==="1") {
+        console.log(res);
+        ElMessage({type:"success",message:"登录成功"})
+      }
     }
   })
 }
