@@ -3,8 +3,6 @@ import { getDetailAPI } from '@/apis/detail';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DetailHot from './components/DetailHot.vue';
-import ImageView from "@/components/imageView/index.vue"
-import XtxSku from "@/components/XtxSku/index.vue"
 
 
 const route = useRoute()
@@ -37,11 +35,11 @@ const skuChange = (sku) => {
            -->
           <el-breadcrumb-item :to="{ path: `/category/${detail.categories[1].id}` }">{{ detail.categories[1].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: `/categary/sub/${detail.categories[0].id}` }">{{ detail.categories[0].name }}
+          <el-breadcrumb-item :to="{ path: `/category/sub/${detail.categories[0].id}` }">{{ detail.categories[0].name }}
           </el-breadcrumb-item>
           <!-- <el-breadcrumb-item :to="{ path: `/category/${detail.categories?.[1].id}` }">{{ detail.categories?.[1].name }}
           </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: `/categary/sub/${detail.categories?.[0].id}` }">{{
+          <el-breadcrumb-item :to="{ path: `/category/sub/${detail.categories?.[0].id}` }">{{
             detail.categories?.[0].name }}
           </el-breadcrumb-item> -->
           <el-breadcrumb-item>{{ detail.name }}</el-breadcrumb-item>
@@ -53,7 +51,7 @@ const skuChange = (sku) => {
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageView :image-list="detail.mainPictures" />
+              <XtxImageView :image-list="detail.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
