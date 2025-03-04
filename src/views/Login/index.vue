@@ -4,7 +4,8 @@ import { ref } from 'vue';
 
 import { ElMessage } from 'element-plus';
 import 'element-plus/theme-chalk/el-message.css'
-
+import { useRouter } from 'vue-router';
+const router = useRouter()
 
 //1.表单
 const form = ref({
@@ -44,9 +45,10 @@ const doLogin = () => {
   formRef.value.validate(async (valid) => {
     if (valid) {
       const res = await loginAPI({ account, password })
-      if (res.code ==="1") {
+      if (res.code === "1") {
         console.log(res);
-        ElMessage({type:"success",message:"登录成功"})
+        ElMessage({ type: "success", message: "登录成功" })
+        router.replace({ path: "/" })
       }
     }
   })
