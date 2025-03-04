@@ -9,8 +9,8 @@ const router = useRouter()
 
 //1.表单
 const form = ref({
-  account: '',
-  password: '',
+  account: 'xiaotuxian001',
+  password: '123456',
   agree: false
 })
 //2.规则
