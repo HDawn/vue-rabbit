@@ -16,3 +16,13 @@ export function getCartListAPI() {
     url: "member/cart"
   })
 }
+
+export function delCartAPI(ids) {
+  return httpInstance({
+    url: "member/cart",
+    method: "DELETE",
+    data: {
+      ids
+    }
+  })
+}
