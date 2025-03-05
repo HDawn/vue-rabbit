@@ -43,7 +43,9 @@ export const useCartStore = defineStore('cart', () => {
       cartList.value.splice(idx, 1)
     }
   }
-
+  const clearCart = () => {
+    cartList.value = []
+  }
   const checkChange = (skuId, selected) => {
     console.log(skuId, selected);
 
@@ -74,7 +76,8 @@ export const useCartStore = defineStore('cart', () => {
     selectCount,
     selectPrice,
     getCartList,
-    isLogin
+    isLogin,
+    clearCart
   }
 
 }, {

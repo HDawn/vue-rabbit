@@ -1,16 +1,20 @@
 <script setup>
+import { useCartStore } from '@/stores/cartStore';
 import { useUserStore } from '@/stores/userStore';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
 
 const userStore = useUserStore()
+const cartStore = useCartStore()
 
 const { userinfo } = userStore
 const router = useRouter()
 
 const loginOut = () => {
   userStore.clearUserInfo()
-  ElMessage({type:"success",message:"已退出登录"})
+  cartStore.clearCart()
+
+  ElMessage({ type: "success", message: "已退出登录" })
   router.push("/login")
 }
 
