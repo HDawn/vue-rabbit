@@ -1,7 +1,13 @@
 <script setup>
 import { useCartStore } from '@/stores/cart';
+import { onMounted } from 'vue';
 
 const cartStore = useCartStore()
+onMounted(() => {
+  if (cartStore.isLogin) {
+    cartStore.getCartList()
+  }
+})
 
 </script>
 
@@ -48,7 +54,7 @@ const cartStore = useCartStore()
                 <p>&yen;{{ i.price }}</p>
               </td>
               <td class="tc">
-                <el-input-number v-model="i.count" />
+                <el-input-number min="1" v-model="i.count" />
               </td>
               <td class="tc">
                 <p class="f16 red">&yen;{{ (i.price * i.count).toFixed(2) }}</p>
