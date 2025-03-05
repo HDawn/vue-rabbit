@@ -20,6 +20,13 @@ export const useCartStore = defineStore('cart', () => {
     cartList.value.splice(idx, 1)
   }
 
+  const checkChange = (skuId, selected) => {
+    console.log(skuId, selected);
+
+    const item = cartList.value.find((item) => item.skuId === skuId)
+    item.selected = !item.selected
+  }
+
   const allCount = computed(() => cartList.value.reduce((a, c) => a + c.count, 0))
   const allPrice = computed(() => cartList.value.reduce((a, c) => a + c.count * c.price, 0))
 
@@ -29,7 +36,8 @@ export const useCartStore = defineStore('cart', () => {
     allPrice,
     cartList,
     addCart,
-    delCart
+    delCart,
+    checkChange,
   }
 
 }, {

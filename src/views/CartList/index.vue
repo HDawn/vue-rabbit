@@ -26,7 +26,10 @@ const cartStore = useCartStore()
           <tbody>
             <tr v-for="i in cartStore.cartList" :key="i.id">
               <td>
-                <el-checkbox />
+                <!-- 传参时默认参数和其他参数一起传需要这种(a)=>method(a,b)方式 -->
+                <!-- (selected) => cartStore.checkChange(i.skuId, selected)  -->
+                <el-checkbox :model-value="i.selected"
+                  @change="(selected) => cartStore.checkChange(i.skuId, selected)" />
               </td>
               <td>
                 <div class="goods">
