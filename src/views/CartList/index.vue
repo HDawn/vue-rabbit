@@ -35,7 +35,7 @@ onMounted(() => {
                 <!-- 传参时默认参数和其他参数一起传需要这种(a)=>method(a,b)方式 -->
                 <!-- (selected) => cartStore.checkChange(i.skuId, selected)  -->
                 <el-checkbox :model-value="i.selected"
-                  @change="(selected) => cartStore.checkChange(i.skuId, selected)" />
+                  @change="(selected) => cartStore.checkChange(i.skuId, selected, i.count)  " />
               </td>
               <td>
                 <div class="goods">
@@ -54,7 +54,8 @@ onMounted(() => {
                 <p>&yen;{{ i.price }}</p>
               </td>
               <td class="tc">
-                <el-input-number min="1" v-model="i.count" />
+                <el-input-number :min='1' v-model="i.count"
+                  @change="(count) => cartStore.updateCartCount(i.skuId, i.selected, count)" />
               </td>
               <td class="tc">
                 <p class="f16 red">&yen;{{ (i.price * i.count).toFixed(2) }}</p>

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useUserStore } from "./userStore";
-import { addCartAPI, delCartAPI, getCartListAPI, mergeCartAPI } from "@/apis/cart";
+import { addCartAPI, allSelectAPI, delCartAPI, getCartListAPI, mergeCartAPI, updateCartCountAPI } from "@/apis/cart";
 
 
 export const useCartStore = defineStore('cart', () => {
@@ -43,6 +43,12 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  const updateCartCount = async (skuId, selected, count) => {
+    if (isLogin.value) {
+      await updateCartCountAPI(skuId, selected, count)
+    }
+  }
+
   const delCart = async (skuId) => {
     if (isLogin.value) {
       const res = await delCartAPI([skuId])
@@ -57,14 +63,18 @@ export const useCartStore = defineStore('cart', () => {
   const clearCart = () => {
     cartList.value = []
   }
-  const checkChange = (skuId, selected) => {
-    console.log(skuId, selected);
-
+  const checkChange = async (skuId, selected, count) => {
+    if (isLogin.value) {
+      await updateCartCountAPI(skuId, selected, count)
+    }
     const item = cartList.value.find((item) => item.skuId === skuId)
     item.selected = !item.selected
   }
 
-  const allSelect = (selected) => {
+  const allSelect = async (selected) => {
+    if (isLogin.value) {
+      await allSelectAPI(selected, cartList.value.map((item) => item.skuId))
+    }
     cartList.value.forEach((item) => item.selected = selected)
   }
 
@@ -89,7 +99,8 @@ export const useCartStore = defineStore('cart', () => {
     getCartList,
     isLogin,
     clearCart,
-    margeCart
+    margeCart,
+    updateCartCount
   }
 
 }, {

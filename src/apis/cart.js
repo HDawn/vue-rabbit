@@ -11,6 +11,27 @@ export function addCartAPI(skuId, count) {
   })
 }
 
+export function allSelectAPI(selected, skuIds) {
+  return httpInstance({
+    url: "member/cart/selected",
+    method: "PUT",
+    data: {
+      selected,
+      skuIds,
+    }
+  })
+}
+
+export function updateCartCountAPI(skuId, selected, count) {
+  return httpInstance({
+    url: "member/cart/" + skuId,
+    method: "PUT",
+    data: {
+      selected,
+      count,
+    }
+  })
+}
 export function getCartListAPI() {
   return httpInstance({
     url: "member/cart"
