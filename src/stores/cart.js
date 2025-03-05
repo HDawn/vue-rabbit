@@ -25,21 +25,11 @@ export const useCartStore = defineStore('cart', () => {
 
     const item = cartList.value.find((item) => item.skuId === skuId)
     item.selected = !item.selected
-
-    // 注释的是我自己实现的全选
-    // let b = true;
-    // cartList.value.forEach((item) => {
-    //   if (!item.selected) {
-    //     b = false;
-    //   }
-    // })
-    // allSelected.value = b
   }
 
   const allSelect = (selected) => {
     cartList.value.forEach((item) => item.selected = selected)
   }
-  // const allSelected = ref(true)
 
   const allCount = computed(() => cartList.value.reduce((a, c) => a + c.count, 0))
   const allPrice = computed(() => cartList.value.reduce((a, c) => a + c.count * c.price, 0))
@@ -53,7 +43,6 @@ export const useCartStore = defineStore('cart', () => {
     delCart,
     checkChange,
     allSelect,
-    // allSelected
     isAll
   }
 
