@@ -13,7 +13,7 @@ const cartStore = useCartStore()
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox :model-value ="cartStore.isAll" @change="cartStore.allSelect" />
+                <el-checkbox :model-value="cartStore.isAll" @change="cartStore.allSelect" />
               </th>
               <th width="400">商品信息</th>
               <th width="220">单价</th>
@@ -80,8 +80,8 @@ const cartStore = useCartStore()
       <!-- 操作栏 -->
       <div class="action">
         <div class="batch">
-          共 {{ cartStore.allCount }} 件商品，已选择 2 件，商品合计：
-          <span class="red">¥ 200.00 </span>
+          共 {{ cartStore.allCount }} 件商品，已选择 {{ cartStore.selectCount }} 件，商品合计：
+          <span class="red">¥ {{ cartStore.selectPrice }} </span>
         </div>
         <div class="total">
           <el-button size="large" type="primary">下单结算</el-button>
