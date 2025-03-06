@@ -12,6 +12,8 @@ const getCheckOutInfo = async () => {
   curAddress.value = res.result.userAddresses.find((item) => item.isDefault === 0)
 }
 
+const activeAddress = ref({})
+
 onMounted(() => getCheckOutInfo())
 
 </script>
@@ -33,7 +35,7 @@ onMounted(() => getCheckOutInfo())
               </ul>
             </div>
             <div class="action">
-              <el-button size="large" @click="toggleFlag = true">切换地址</el-button>
+              <el-button size="large" @click="{ toggleFlag = true; activeAddress = curAddress }">切换地址</el-button>
               <el-button size="large" @click="addFlag = true">添加地址</el-button>
             </div>
           </div>
@@ -116,7 +118,8 @@ onMounted(() => getCheckOutInfo())
   <!-- 切换地址 -->
   <el-dialog title="切换收货地址" width="30%" center v-model="toggleFlag">
     <div class="addressWrapper">
-      <div class="text item" v-for="item in checkInfo.userAddresses" :key="item.id">
+      <div class="text item" :class="{ active: activeAddress.id === item.id }" @click="activeAddress = item"
+        v-for="item in checkInfo.userAddresses" :key="item.id">
         <ul>
           <li><span>收<i />货<i />人：</span>{{ item.receiver }} </li>
           <li><span>联系方式：</span>{{ item.contact }}</li>
@@ -126,8 +129,8 @@ onMounted(() => getCheckOutInfo())
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button>取消</el-button>
-        <el-button type="primary">确定</el-button>
+        <el-button @click="toggleFlag = false">取消</el-button>
+        <el-button type="primary" @click="{ curAddress = activeAddress; toggleFlag = false }">确定</el-button>
       </span>
     </template>
   </el-dialog>
