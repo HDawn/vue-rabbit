@@ -7,10 +7,14 @@ export const useCountDown = () => {
 
   let timer = null;
   const start = (currentTime) => {
-    time.value = currentTime
-    timer = setInterval(() => {
-      time.value--;
-    }, 1000)
+    if (currentTime > 0) {
+      time.value = currentTime
+      timer = setInterval(() => {
+        if (time.value > 0) {
+          time.value--;
+        }
+      }, 1000)
+    }
   }
 
   onUnmounted(() => {

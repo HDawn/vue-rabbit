@@ -42,7 +42,7 @@ const createOrder = async () => {
     }
   })
 
-  cartStore.clearCart()
+  cartStore.getCartList()
 }
 
 onMounted(() => getCheckOutInfo())
