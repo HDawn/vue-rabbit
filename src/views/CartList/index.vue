@@ -1,13 +1,24 @@
 <script setup>
 import { useCartStore } from '@/stores/cartStore';
+import { ElMessage } from 'element-plus';
 import { onMounted } from 'vue';
-
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const cartStore = useCartStore()
 onMounted(() => {
   if (cartStore.isLogin) {
     cartStore.getCartList()
   }
 })
+
+const checkOut = () => {
+  const items = cartStore.cartList.filter((item) => item.selected)
+  if (items.length !== 0) {
+    router.push('/checkout')
+  } else {
+    ElMessage({ type: "warning", message: "请选择要结算的商品" })
+  }
+}
 
 </script>
 
@@ -35,7 +46,7 @@ onMounted(() => {
                 <!-- 传参时默认参数和其他参数一起传需要这种(a)=>method(a,b)方式 -->
                 <!-- (selected) => cartStore.checkChange(i.skuId, selected)  -->
                 <el-checkbox :model-value="i.selected"
-                  @change="(selected) => cartStore.checkChange(i.skuId, selected, i.count)  " />
+                  @change="(selected) => cartStore.checkChange(i.skuId, selected, i.count)" />
               </td>
               <td>
                 <div class="goods">
@@ -91,7 +102,7 @@ onMounted(() => {
           <span class="red">¥ {{ cartStore.selectPrice.toFixed(2) }} </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" @click="$router.push('/checkout')">下单结算</el-button>
+          <el-button size="large" type="primary" @click="checkOut()">下单结算</el-button>
         </div>
       </div>
     </div>
