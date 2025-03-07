@@ -370,7 +370,8 @@ onMounted(() => getCheckOutInfo())
     &.active,
     &:hover {
       border-color: $xtxColor;
-      background: lighten($xtxColor, 50%);
+      // background: lighten($xtxColor, 50%);
+      background: color-mix(in srgb, $xtxColor, white 90%);
     }
 
     >ul {
