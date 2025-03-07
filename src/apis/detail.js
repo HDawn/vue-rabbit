@@ -25,3 +25,9 @@ export const getHotGoodsAPI = ({ id, type, limit = 3 }) => {
     },
   });
 };
+
+export const getGoodsStockAPI = (id) => {
+  return request({
+    url: `goods/stock/${id}`,
+  });
+};

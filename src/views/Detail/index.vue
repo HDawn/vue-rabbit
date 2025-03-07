@@ -17,10 +17,10 @@ const getDetail = async (id = route.params.id) => {
 }
 onMounted(() => getDetail())
 
-let skuObj = {}
+const skuObj = ref({})
 const skuChange = (sku) => {
   console.log(sku);
-  skuObj = sku
+  skuObj.value = sku
 }
 const count = ref(1)
 const countChange = (count) => {
@@ -30,15 +30,15 @@ const countChange = (count) => {
 const cartStore = useCartStore()
 
 const addCart = () => {
-  if (skuObj.skuId) {
+  if (skuObj.value.skuId) {
     cartStore.addCart({
       id: detail.value.id,
       name: detail.value.name,
       picture: detail.value.mainPictures[0],
       price: detail.value.price,
       count: count.value,
-      skuId: skuObj.skuId,
-      attrsText: skuObj.specsText,
+      skuId: skuObj.value.skuId,
+      attrsText: skuObj.value.specsText,
       selected: true
     })
     ElMessage({ type: "success", message: "加入购物车成功" })
@@ -130,7 +130,7 @@ const addCart = () => {
               <!-- sku组件 -->
               <XtxSku :goods="detail" @change="skuChange" />
               <!-- 数据组件 -->
-              <el-input-number :min="1" v-model="count" @change="countChange" />
+              <el-input-number :min="1" :max="skuObj.inventory" v-model="count" @change="countChange" />
               <!-- 按钮组件 -->
               <div>
                 <el-button size="large" class="btn" @click="addCart">

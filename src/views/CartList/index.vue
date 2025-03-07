@@ -65,7 +65,7 @@ const checkOut = () => {
                 <p>&yen;{{ i.price }}</p>
               </td>
               <td class="tc">
-                <el-input-number :min='1' v-model="i.count"
+                <el-input-number :min='1' :max="i.stock" v-model="i.count"
                   @change="(count) => cartStore.updateCartCount(i.skuId, i.selected, count)" />
               </td>
               <td class="tc">
